@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+    
+<configuration>
+	<!-- 引用一个properties配置文件 -->
+	<properties resource="com/config/jdbcMysql.properties"></properties>
+	
+	<environments default="MySQLDevelop">
+		<!-- 可写多个environment标签 -->
+		<environment id="MySQLDevelop">
+			<!-- 
+				使用JDBC的事务管理 
+				关于 < transactionManager type ="JDBC" >  
+				定义了ibatis的事务管理器有3中（JDBC,JTA,EXTERNAL） 
+				transactionManagerab 定义了ibatis的事务管理器,目前提供了以下几种选择:
+				1)  JDBC  通过传统JDBC Connection.commit/rollback实现事务支持.
+				2)  JTA   使用容器提供的JTA服务实现全局事务管理.
+				3)  EXTERNAL  外部事务管理,如在EJB中使用ibatis,通过EJB的部署配置即可实现
+				自动的事务管理机制.此时ibatis将把所有事务委托给外部容器进行管理.
+				此外,通过Spring等轻量级容量实现事务的配置化管理也是一个不错的选择. 
+			-->
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<!-- 
+					MySQL数据库连接
+				 -->
+				<property name="driver" value="${jdbc.driverClassName}"/>
+				<property name="url" value="${jdbc.url}"/>
+				<property name="username" value="${jdbc.username}"/>
+				<property name="password" value="${jdbc.password}"/>
+			</dataSource>
+		</environment>
+		
+		<!-- 
+		Oracle数据库连接 
+		<environment id="OracleDevelop">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="${driverClassName}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>	
+		-->
+				
+	</environments>
+	
+	<mappers>
+		<mapper resource="com/config/UserMapper.xml"/>
+		<mapper resource="com/config/MenuMapper.xml"/>
+		
+		
+	</mappers>
+</configuration>
